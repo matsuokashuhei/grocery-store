@@ -1,0 +1,14 @@
+{
+    "dockerComposeFile": [
+        "../../../compose.yml"
+    ],
+    "service": "user-service",
+    "workspaceFolder": "/ec/services/user-service",
+    // "build": {
+    //     "dockerfile": "../Dockerfile",
+    //     "target": "builder"
+    // },
+    "extensions": [
+        "golang.go"
+    ]
+}

@@ -1,0 +1,8 @@
+services:
+  user-service:
+    build:
+      context: .
+      dockerfile: ./services/user-service/Dockerfile
+    command: sleep infinity
+    volumes:
+      - .:/ec

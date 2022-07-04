@@ -23,17 +23,17 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	srv := grpc.NewServer()
-	pb.RegisterUserServiceServer(srv, &user{})
+	pb.RegisterUserServiceServer(srv, &User{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := srv.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
 
-type user struct {
+type User struct {
 	pb.UnimplementedUserServiceServer
 }
 
-func (u *user) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.Empty, error) {
-	return &pb.Empty{}, nil
+func (u *User) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResposne, error) {
+	return &pb.SignUpResposne{Uuid: "test"}, nil
 }

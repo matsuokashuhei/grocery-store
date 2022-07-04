@@ -8,6 +8,7 @@
     //     "dockerfile": "../Dockerfile",
     //     "target": "builder"
     // },
+    "shutdownAction": "stopCompose",
     "extensions": [
         "golang.go"
     ]

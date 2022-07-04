@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*Empty, error)
+	SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*SignUpResposne, error)
 }
 
 type userServiceClient struct {
@@ -33,8 +33,8 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*Empty, error) {
-	out := new(Empty)
+func (c *userServiceClient) SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*SignUpResposne, error) {
+	out := new(SignUpResposne)
 	err := c.cc.Invoke(ctx, "/ec.UserService/SignUp", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (c *userServiceClient) SignUp(ctx context.Context, in *SignUpRequest, opts 
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
 type UserServiceServer interface {
-	SignUp(context.Context, *SignUpRequest) (*Empty, error)
+	SignUp(context.Context, *SignUpRequest) (*SignUpResposne, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -54,7 +54,7 @@ type UserServiceServer interface {
 type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) SignUp(context.Context, *SignUpRequest) (*Empty, error) {
+func (UnimplementedUserServiceServer) SignUp(context.Context, *SignUpRequest) (*SignUpResposne, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignUp not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}

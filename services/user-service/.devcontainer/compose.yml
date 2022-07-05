@@ -1,0 +1,3 @@
+services:
+  user-service:
+    command: sleep infinity

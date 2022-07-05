@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: ./services/user-service/Dockerfile
-    command: sleep infinity
+    command: go run server.go -port 8080
+    ports:
+      - 8080:8080
     volumes:
       - .:/ec

@@ -1,6 +1,7 @@
 {
     "dockerComposeFile": [
-        "../../../compose.yml"
+        "../../../compose.yml",
+        "compose.yml"
     ],
     "service": "user-service",
     "workspaceFolder": "/ec/services/user-service",

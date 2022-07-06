@@ -8,7 +8,9 @@ import (
 	"net"
 
 	pb "matsuokashuhei/ec/services/user-service/genproto"
+	"matsuokashuhei/ec/services/user-service/repositories"
 
+	firebase "firebase.google.com/go/v4"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
@@ -40,12 +42,36 @@ func main() {
 	}
 }
 
+// func initializeAppDefault() *firebase.App {
+// 	// [START initialize_app_default_golang]
+// 	app, err := firebase.NewApp(context.Background(), nil)
+// 	if err != nil {
+// 		log.Fatalf("error initializing app: %v\n", err)
+// 	}
+// 	// [END initialize_app_default_golang]
+
+// 	return app
+// }
+
 type User struct {
 	pb.UnimplementedUserServiceServer
 }
 
 func (u *User) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResposne, error) {
-	return &pb.SignUpResposne{Uuid: "test"}, nil
+	app, err := firebase.NewApp(ctx, nil)
+	if err != nil {
+		return nil, err
+	}
+	client, err := app.Auth(ctx)
+	if err != nil {
+		return nil, err
+	}
+	r := repositories.NewAuthRepository(client)
+	user, err := r.Create(ctx, req.Email, req.Password)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.SignUpResposne{Uid: user.UID}, nil
 }
 
 func valid(authorization []string) bool {

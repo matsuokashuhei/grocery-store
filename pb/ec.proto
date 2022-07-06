@@ -13,7 +13,7 @@ message SignUpRequest {
 }
 
 message SignUpResposne {
-    string uuid = 1;
+    string uid = 1;
 }
 
 message Empty {}

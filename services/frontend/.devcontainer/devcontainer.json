@@ -1,0 +1,8 @@
+{
+    "dockerComposeFile": [
+        "../../../compose.yml"
+    ],
+    "service": "frontend",
+    "workspaceFolder": "/amaten/services/frontend",
+    "shutdownAction": "none"
+}

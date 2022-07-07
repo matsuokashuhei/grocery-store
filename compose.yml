@@ -1,4 +1,14 @@
 services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./services/frontend/.devcontainer/Dockerfile
+    command: sleep infinity
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/amaten
+
   user-service:
     build:
       context: .
@@ -7,4 +17,4 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - .:/ec
+      - .:/amaten

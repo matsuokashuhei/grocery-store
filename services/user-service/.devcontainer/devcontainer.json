@@ -4,12 +4,12 @@
         "compose.yml"
     ],
     "service": "user-service",
-    "workspaceFolder": "/ec/services/user-service",
+    "workspaceFolder": "/amaten/services/user-service",
     // "build": {
     //     "dockerfile": "../Dockerfile",
     //     "target": "builder"
     // },
-    "shutdownAction": "stopCompose",
+    "shutdownAction": "none",
     "extensions": [
         "golang.go"
     ]

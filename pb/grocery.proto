@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-option go_package = "matsuokashuhei/ec";
-package ec;
+option go_package = "matsuokashuhei/grocery-store";
+package grocerystore;
 
-service UserService {
+service ConsumerService {
     rpc SignUp(SignUpRequest) returns (SignUpResposne) {}
 }
 
@@ -15,5 +15,3 @@ message SignUpRequest {
 message SignUpResposne {
     string uid = 1;
 }
-
-message Empty {}

@@ -4,7 +4,7 @@ RUN apt-get update && apt install -y protobuf-compiler
 
 ENV GO111MODULE on
 
-WORKDIR /amaten/services/user-service
+WORKDIR /grocery-store/services/consumer-service
 
 RUN go install github.com/cweill/gotests/gotests@latest \
  && go install github.com/fatih/gomodifytags@latest \

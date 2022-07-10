@@ -7,13 +7,12 @@ import (
 	"log"
 	"net"
 
-	pb "matsuokashuhei/ec/services/user-service/genproto"
-	"matsuokashuhei/ec/services/user-service/repositories"
+	pb "matsuokashuhei/grocery-store/services/consumer-service/genproto"
+	"matsuokashuhei/grocery-store/services/consumer-service/pkg/repositories"
 
 	firebase "firebase.google.com/go/v4"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 )
 
@@ -31,11 +30,12 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	opts := []grpc.ServerOption{
-		grpc.UnaryInterceptor(ensureValidToken),
-	}
-	srv := grpc.NewServer(opts...)
-	pb.RegisterUserServiceServer(srv, &User{})
+	// opts := []grpc.ServerOption{
+	// 	grpc.UnaryInterceptor(ensureValidToken),
+	// }
+	// srv := grpc.NewServer(opts...)
+	srv := grpc.NewServer()
+	pb.RegisterConsumerServiceServer(srv, &Consumer{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := srv.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
@@ -53,11 +53,11 @@ func main() {
 // 	return app
 // }
 
-type User struct {
-	pb.UnimplementedUserServiceServer
+type Consumer struct {
+	pb.UnimplementedConsumerServiceServer
 }
 
-func (u *User) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResposne, error) {
+func (u *Consumer) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResposne, error) {
 	app, err := firebase.NewApp(ctx, nil)
 	if err != nil {
 		return nil, err
@@ -66,7 +66,7 @@ func (u *User) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpRes
 	if err != nil {
 		return nil, err
 	}
-	r := repositories.NewAuthRepository(client)
+	r := repositories.NewUserRepository(client)
 	user, err := r.Create(ctx, req.Email, req.Password)
 	if err != nil {
 		return nil, err
@@ -74,17 +74,17 @@ func (u *User) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpRes
 	return &pb.SignUpResposne{Uid: user.UID}, nil
 }
 
-func valid(authorization []string) bool {
-	return true
-}
+// func valid(authorization []string) bool {
+// 	return true
+// }
 
-func ensureValidToken(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-	md, ok := metadata.FromIncomingContext(ctx)
-	if !ok {
-		return nil, errMissingMetadata
-	}
-	if !valid(md["authorization"]) {
-		return nil, errInvalidToken
-	}
-	return handler(ctx, req)
-}
+// func ensureValidToken(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+// 	md, ok := metadata.FromIncomingContext(ctx)
+// 	if !ok {
+// 		return nil, errMissingMetadata
+// 	}
+// 	if !valid(md["authorization"]) {
+// 		return nil, errInvalidToken
+// 	}
+// 	return handler(ctx, req)
+// }

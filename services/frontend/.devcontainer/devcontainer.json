@@ -3,6 +3,6 @@
         "../../../compose.yml"
     ],
     "service": "frontend",
-    "workspaceFolder": "/amaten/services/frontend",
+    "workspaceFolder": "/grocery-store/services/frontend",
     "shutdownAction": "none"
 }

@@ -7,14 +7,14 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/amaten
+      - .:/grocery-store
 
-  user-service:
+  consumer-service:
     build:
       context: .
-      dockerfile: ./services/user-service/Dockerfile
+      dockerfile: ./services/consumer-service/Dockerfile
     command: go run server.go -port 8080
     ports:
       - 8080:8080
     volumes:
-      - .:/amaten
+      - .:/grocery-store

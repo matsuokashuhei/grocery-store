@@ -3,8 +3,8 @@
         "../../../compose.yml",
         "compose.yml"
     ],
-    "service": "user-service",
-    "workspaceFolder": "/amaten/services/user-service",
+    "service": "consumer-service",
+    "workspaceFolder": "/grocery-store/services/consumer-service",
     // "build": {
     //     "dockerfile": "../Dockerfile",
     //     "target": "builder"

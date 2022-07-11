@@ -3,8 +3,8 @@
         "../../../compose.yml",
         "compose.yml"
     ],
-    "service": "consumer-service",
-    "workspaceFolder": "/grocery-store/services/consumer-service",
+    "service": "customer-service",
+    "workspaceFolder": "/grocery-store/services/customer-service",
     // "build": {
     //     "dockerfile": "../Dockerfile",
     //     "target": "builder"

@@ -7,8 +7,8 @@ import (
 	"log"
 	"net"
 
-	pb "matsuokashuhei/grocery-store/services/consumer-service/genproto"
-	"matsuokashuhei/grocery-store/services/consumer-service/pkg/repositories"
+	pb "matsuokashuhei/grocery-store/services/customer-service/genproto"
+	"matsuokashuhei/grocery-store/services/customer-service/pkg/repositories"
 
 	firebase "firebase.google.com/go/v4"
 	"google.golang.org/grpc"
@@ -35,7 +35,7 @@ func main() {
 	// }
 	// srv := grpc.NewServer(opts...)
 	srv := grpc.NewServer()
-	pb.RegisterConsumerServiceServer(srv, &Consumer{})
+	pb.RegisterCustomerServiceServer(srv, &Customer{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := srv.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
@@ -53,11 +53,11 @@ func main() {
 // 	return app
 // }
 
-type Consumer struct {
-	pb.UnimplementedConsumerServiceServer
+type Customer struct {
+	pb.UnimplementedCustomerServiceServer
 }
 
-func (u *Consumer) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResposne, error) {
+func (u *Customer) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResposne, error) {
 	app, err := firebase.NewApp(ctx, nil)
 	if err != nil {
 		return nil, err

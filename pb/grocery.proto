@@ -3,7 +3,7 @@ syntax = "proto3";
 option go_package = "matsuokashuhei/grocery-store";
 package grocerystore;
 
-service ConsumerService {
+service CustomerService {
     rpc SignUp(SignUpRequest) returns (SignUpResposne) {}
 }
 

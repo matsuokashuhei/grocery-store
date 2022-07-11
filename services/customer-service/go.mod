@@ -1,4 +1,4 @@
-module matsuokashuhei/grocery-store/services/consumer-service
+module matsuokashuhei/grocery-store/services/customer-service
 
 go 1.18
 

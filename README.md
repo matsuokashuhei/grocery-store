@@ -8,14 +8,15 @@ erDiagram
 
 customers {
     id int PK
-    uid string PK
+    name string
     address string
+    phone_number string
 }
 
 carts {
     id int PK
     store_id int FK
-    consumer_id int FK
+    customer_id int FK
 }
 
 cart_items {
@@ -36,6 +37,23 @@ order_items {
     cart_item_id int FK
 }
 
+order_cancels {
+    id int PK
+    order_id int FK
+}
+
+shipments {
+    id int PK
+    order_id int FK
+}
+
+shipment_items {
+    id int PK
+    shipment_id int FK
+    order_item_id int FK
+    quantity int
+}
+
 invoices {
     id int PK
     order_id int FK
@@ -47,15 +65,15 @@ invoice_items {
     order_item_id int FK
 }
 
-refunds {
+order_refunds {
     id int PK
-    order_id int FK
+    shipment_id int FK
 }
 
 refund_items {
     id int PK
-    refund_id int FK
-    order_item_id int FK
+    order_refund_id int FK
+    shipment_item_id int FK
     quantity int
 }
 
@@ -116,6 +134,18 @@ allocations {
     cart_item_id int FK
 }
 
+taxes {
+    id int PK
+    rate decimal
+}
+
+groceries_taxes {
+    id int PK
+    grocery_id int FK
+    tax_id int FK
+    start_date date
+    end_date date
+}
 
 customers ||--o{ carts : ""
 stores ||--o{ carts : ""
@@ -124,6 +154,8 @@ cart_items }o--|| variants : ""
 categories ||--o{ category_hierarchies : ""
 categories ||--o{ categories_groceries : ""
 categories_groceries }|--|| groceries : ""
+groceries ||--|{ groceries_taxes : ""
+groceries_taxes }|--|| taxes : ""
 groceries ||--o{ variants : ""
 variants ||--o{ stocks : ""
 variants ||--o{ prices : ""
@@ -133,11 +165,15 @@ cart_items ||--|{ allocations : ""
 carts ||--o{ orders : ""
 cart_items ||--o{ order_items : ""
 orders ||--|{ order_items : ""
+orders ||--o{ order_cancels : ""
 orders ||--o{ invoices : ""
 invoices ||--|{ invoice_items : ""
 invoice_items }|--|| order_items : ""
-orders ||--o{ refunds : ""
-refunds ||--|{ refund_items : ""
+orders ||--o{ shipments : ""
+shipments ||--|{ shipment_items : ""
+order_items ||--|{ shipment_items : ""
+orders ||--o{ order_refunds : ""
+order_refunds ||--|{ refund_items : ""
 refund_items }|--|| order_items : ""
 
 ```

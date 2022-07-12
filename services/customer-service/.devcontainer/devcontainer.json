@@ -11,6 +11,7 @@
     // },
     "shutdownAction": "none",
     "extensions": [
-        "golang.go"
+        "golang.go",
+        "mhutchie.git-graph"
     ]
 }

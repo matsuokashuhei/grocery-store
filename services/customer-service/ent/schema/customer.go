@@ -1,15 +1,27 @@
 package schema
 
-import "entgo.io/ent"
+import (
+	"entgo.io/ent"
+	"entgo.io/ent/schema/field"
+	"entgo.io/ent/schema/mixin"
+)
 
 // Customer holds the schema definition for the Customer entity.
 type Customer struct {
 	ent.Schema
 }
 
+func (Customer) Mixin() []ent.Mixin {
+	return []ent.Mixin{
+		mixin.Time{},
+	}
+}
+
 // Fields of the Customer.
 func (Customer) Fields() []ent.Field {
-	return nil
+	return []ent.Field{
+		field.String("name"),
+	}
 }
 
 // Edges of the Customer.

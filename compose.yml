@@ -14,7 +14,24 @@ services:
       context: .
       dockerfile: ./services/customer-service/Dockerfile
     command: go run server.go -port 8080
+    depends_on:
+      - customer-service-db
+    env_file:
+      - ./services/customer-service/.env
     ports:
       - 8080:8080
     volumes:
       - .:/grocery-store
+
+  customer-service-db:
+    image: mysql:8-oracle
+    env_file:
+      - ./services/customer-service/.env
+    command: mysqld --default_authentication_plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    volumes:
+      - customer-service-db-data:/var/lib/mysql
+
+volumes:
+  customer-service-db-data:

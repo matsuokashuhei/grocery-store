@@ -8,7 +8,8 @@ import (
 	"net"
 
 	pb "matsuokashuhei/grocery-store/services/customer-service/genproto"
-	"matsuokashuhei/grocery-store/services/customer-service/pkg/repositories"
+	"matsuokashuhei/grocery-store/services/customer-service/internal/repository"
+	"matsuokashuhei/grocery-store/services/customer-service/internal/service"
 
 	firebase "firebase.google.com/go/v4"
 	"google.golang.org/grpc"
@@ -25,8 +26,32 @@ var (
 )
 
 func main() {
+	// config := mysql.Config{
+	// 	User:      os.Getenv("MYSQL_USER"),
+	// 	Passwd:    os.Getenv("MYSQL_PASSWORD"),
+	// 	Net:       "tcp",
+	// 	Addr:      net.JoinHostPort(os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_PORT")),
+	// 	DBName:    os.Getenv("MYSQL_DATABASE"),
+	// 	ParseTime: true,
+	// }
+	// client, err := ent.Open("mysql", config.FormatDSN())
+	// if err != nil {
+	// 	log.Fatalf("opening ent client: %v", err)
+	// }
+	// defer client.Close()
+
 	flag.Parse()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+
+	ctx := context.Background()
+	app, err := firebase.NewApp(ctx, nil)
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	client, err := app.Auth(ctx)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -34,8 +59,10 @@ func main() {
 	// 	grpc.UnaryInterceptor(ensureValidToken),
 	// }
 	// srv := grpc.NewServer(opts...)
+
+	svc := service.NewCustomerServiceServer(client)
 	srv := grpc.NewServer()
-	pb.RegisterCustomerServiceServer(srv, &Customer{})
+	pb.RegisterCustomerServiceServer(srv, svc)
 	log.Printf("server listening at %v", lis.Addr())
 	if err := srv.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
@@ -66,7 +93,7 @@ func (u *Customer) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignU
 	if err != nil {
 		return nil, err
 	}
-	r := repositories.NewUserRepository(client)
+	r := repository.NewUserRepository(client)
 	user, err := r.Create(ctx, req.Email, req.Password)
 	if err != nil {
 		return nil, err

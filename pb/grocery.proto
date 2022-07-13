@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "matsuokashuhei/grocery-store";
+option go_package = "matsuokashuhei/grocerystore";
 package grocerystore;
 
 service CustomerService {
@@ -8,8 +8,9 @@ service CustomerService {
 }
 
 message SignUpRequest {
-    string email = 1;
-    string password = 2;
+    string name = 1;
+    string email = 2;
+    string password = 3;
 }
 
 message SignUpResposne {

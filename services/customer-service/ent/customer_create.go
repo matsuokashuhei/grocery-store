@@ -54,6 +54,12 @@ func (cc *CustomerCreate) SetName(s string) *CustomerCreate {
 	return cc
 }
 
+// SetUID sets the "uid" field.
+func (cc *CustomerCreate) SetUID(s string) *CustomerCreate {
+	cc.mutation.SetUID(s)
+	return cc
+}
+
 // Mutation returns the CustomerMutation object of the builder.
 func (cc *CustomerCreate) Mutation() *CustomerMutation {
 	return cc.mutation
@@ -146,6 +152,9 @@ func (cc *CustomerCreate) check() error {
 	if _, ok := cc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Customer.name"`)}
 	}
+	if _, ok := cc.mutation.UID(); !ok {
+		return &ValidationError{Name: "uid", err: errors.New(`ent: missing required field "Customer.uid"`)}
+	}
 	return nil
 }
 
@@ -196,6 +205,14 @@ func (cc *CustomerCreate) createSpec() (*Customer, *sqlgraph.CreateSpec) {
 			Column: customer.FieldName,
 		})
 		_node.Name = value
+	}
+	if value, ok := cc.mutation.UID(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: customer.FieldUID,
+		})
+		_node.UID = value
 	}
 	return _node, _spec
 }

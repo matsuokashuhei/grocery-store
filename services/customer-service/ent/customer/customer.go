@@ -17,6 +17,8 @@ const (
 	FieldUpdateTime = "update_time"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
+	// FieldUID holds the string denoting the uid field in the database.
+	FieldUID = "uid"
 	// Table holds the table name of the customer in the database.
 	Table = "customers"
 )
@@ -27,6 +29,7 @@ var Columns = []string{
 	FieldCreateTime,
 	FieldUpdateTime,
 	FieldName,
+	FieldUID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).

@@ -40,6 +40,12 @@ func (cu *CustomerUpdate) SetName(s string) *CustomerUpdate {
 	return cu
 }
 
+// SetUID sets the "uid" field.
+func (cu *CustomerUpdate) SetUID(s string) *CustomerUpdate {
+	cu.mutation.SetUID(s)
+	return cu
+}
+
 // Mutation returns the CustomerMutation object of the builder.
 func (cu *CustomerUpdate) Mutation() *CustomerMutation {
 	return cu.mutation
@@ -140,6 +146,13 @@ func (cu *CustomerUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: customer.FieldName,
 		})
 	}
+	if value, ok := cu.mutation.UID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: customer.FieldUID,
+		})
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, cu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{customer.Label}
@@ -168,6 +181,12 @@ func (cuo *CustomerUpdateOne) SetUpdateTime(t time.Time) *CustomerUpdateOne {
 // SetName sets the "name" field.
 func (cuo *CustomerUpdateOne) SetName(s string) *CustomerUpdateOne {
 	cuo.mutation.SetName(s)
+	return cuo
+}
+
+// SetUID sets the "uid" field.
+func (cuo *CustomerUpdateOne) SetUID(s string) *CustomerUpdateOne {
+	cuo.mutation.SetUID(s)
 	return cuo
 }
 
@@ -293,6 +312,13 @@ func (cuo *CustomerUpdateOne) sqlSave(ctx context.Context) (_node *Customer, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: customer.FieldName,
+		})
+	}
+	if value, ok := cuo.mutation.UID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: customer.FieldUID,
 		})
 	}
 	_node = &Customer{config: cuo.config}

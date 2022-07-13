@@ -20,6 +20,7 @@ func (Customer) Mixin() []ent.Mixin {
 // Fields of the Customer.
 func (Customer) Fields() []ent.Field {
 	return []ent.Field{
+		field.String("uid"),
 		field.String("name"),
 	}
 }

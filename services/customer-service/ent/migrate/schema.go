@@ -14,6 +14,7 @@ var (
 		{Name: "create_time", Type: field.TypeTime},
 		{Name: "update_time", Type: field.TypeTime},
 		{Name: "name", Type: field.TypeString},
+		{Name: "uid", Type: field.TypeString},
 	}
 	// CustomersTable holds the schema information for the "customers" table.
 	CustomersTable = &schema.Table{

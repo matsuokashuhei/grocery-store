@@ -35,6 +35,7 @@ type CustomerMutation struct {
 	create_time   *time.Time
 	update_time   *time.Time
 	name          *string
+	uid           *string
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*Customer, error)
@@ -247,6 +248,42 @@ func (m *CustomerMutation) ResetName() {
 	m.name = nil
 }
 
+// SetUID sets the "uid" field.
+func (m *CustomerMutation) SetUID(s string) {
+	m.uid = &s
+}
+
+// UID returns the value of the "uid" field in the mutation.
+func (m *CustomerMutation) UID() (r string, exists bool) {
+	v := m.uid
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUID returns the old "uid" field's value of the Customer entity.
+// If the Customer object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CustomerMutation) OldUID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUID: %w", err)
+	}
+	return oldValue.UID, nil
+}
+
+// ResetUID resets all changes to the "uid" field.
+func (m *CustomerMutation) ResetUID() {
+	m.uid = nil
+}
+
 // Where appends a list predicates to the CustomerMutation builder.
 func (m *CustomerMutation) Where(ps ...predicate.Customer) {
 	m.predicates = append(m.predicates, ps...)
@@ -266,7 +303,7 @@ func (m *CustomerMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *CustomerMutation) Fields() []string {
-	fields := make([]string, 0, 3)
+	fields := make([]string, 0, 4)
 	if m.create_time != nil {
 		fields = append(fields, customer.FieldCreateTime)
 	}
@@ -275,6 +312,9 @@ func (m *CustomerMutation) Fields() []string {
 	}
 	if m.name != nil {
 		fields = append(fields, customer.FieldName)
+	}
+	if m.uid != nil {
+		fields = append(fields, customer.FieldUID)
 	}
 	return fields
 }
@@ -290,6 +330,8 @@ func (m *CustomerMutation) Field(name string) (ent.Value, bool) {
 		return m.UpdateTime()
 	case customer.FieldName:
 		return m.Name()
+	case customer.FieldUID:
+		return m.UID()
 	}
 	return nil, false
 }
@@ -305,6 +347,8 @@ func (m *CustomerMutation) OldField(ctx context.Context, name string) (ent.Value
 		return m.OldUpdateTime(ctx)
 	case customer.FieldName:
 		return m.OldName(ctx)
+	case customer.FieldUID:
+		return m.OldUID(ctx)
 	}
 	return nil, fmt.Errorf("unknown Customer field %s", name)
 }
@@ -334,6 +378,13 @@ func (m *CustomerMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetName(v)
+		return nil
+	case customer.FieldUID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUID(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Customer field %s", name)
@@ -392,6 +443,9 @@ func (m *CustomerMutation) ResetField(name string) error {
 		return nil
 	case customer.FieldName:
 		m.ResetName()
+		return nil
+	case customer.FieldUID:
+		m.ResetUID()
 		return nil
 	}
 	return fmt.Errorf("unknown Customer field %s", name)

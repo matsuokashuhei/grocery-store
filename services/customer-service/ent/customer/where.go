@@ -113,6 +113,13 @@ func Name(v string) predicate.Customer {
 	})
 }
 
+// UID applies equality check predicate on the "uid" field. It's identical to UIDEQ.
+func UID(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldUID), v))
+	})
+}
+
 // CreateTimeEQ applies the EQ predicate on the "create_time" field.
 func CreateTimeEQ(v time.Time) predicate.Customer {
 	return predicate.Customer(func(s *sql.Selector) {
@@ -373,6 +380,117 @@ func NameEqualFold(v string) predicate.Customer {
 func NameContainsFold(v string) predicate.Customer {
 	return predicate.Customer(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldName), v))
+	})
+}
+
+// UIDEQ applies the EQ predicate on the "uid" field.
+func UIDEQ(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldUID), v))
+	})
+}
+
+// UIDNEQ applies the NEQ predicate on the "uid" field.
+func UIDNEQ(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldUID), v))
+	})
+}
+
+// UIDIn applies the In predicate on the "uid" field.
+func UIDIn(vs ...string) predicate.Customer {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Customer(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldUID), v...))
+	})
+}
+
+// UIDNotIn applies the NotIn predicate on the "uid" field.
+func UIDNotIn(vs ...string) predicate.Customer {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Customer(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldUID), v...))
+	})
+}
+
+// UIDGT applies the GT predicate on the "uid" field.
+func UIDGT(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldUID), v))
+	})
+}
+
+// UIDGTE applies the GTE predicate on the "uid" field.
+func UIDGTE(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldUID), v))
+	})
+}
+
+// UIDLT applies the LT predicate on the "uid" field.
+func UIDLT(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldUID), v))
+	})
+}
+
+// UIDLTE applies the LTE predicate on the "uid" field.
+func UIDLTE(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldUID), v))
+	})
+}
+
+// UIDContains applies the Contains predicate on the "uid" field.
+func UIDContains(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldUID), v))
+	})
+}
+
+// UIDHasPrefix applies the HasPrefix predicate on the "uid" field.
+func UIDHasPrefix(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldUID), v))
+	})
+}
+
+// UIDHasSuffix applies the HasSuffix predicate on the "uid" field.
+func UIDHasSuffix(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldUID), v))
+	})
+}
+
+// UIDEqualFold applies the EqualFold predicate on the "uid" field.
+func UIDEqualFold(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldUID), v))
+	})
+}
+
+// UIDContainsFold applies the ContainsFold predicate on the "uid" field.
+func UIDContainsFold(v string) predicate.Customer {
+	return predicate.Customer(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldUID), v))
 	})
 }
 

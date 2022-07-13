@@ -22,6 +22,8 @@ type Customer struct {
 	UpdateTime time.Time `json:"update_time,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
+	// UID holds the value of the "uid" field.
+	UID string `json:"uid,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -31,7 +33,7 @@ func (*Customer) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case customer.FieldID:
 			values[i] = new(sql.NullInt64)
-		case customer.FieldName:
+		case customer.FieldName, customer.FieldUID:
 			values[i] = new(sql.NullString)
 		case customer.FieldCreateTime, customer.FieldUpdateTime:
 			values[i] = new(sql.NullTime)
@@ -74,6 +76,12 @@ func (c *Customer) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				c.Name = value.String
 			}
+		case customer.FieldUID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field uid", values[i])
+			} else if value.Valid {
+				c.UID = value.String
+			}
 		}
 	}
 	return nil
@@ -108,6 +116,8 @@ func (c *Customer) String() string {
 	builder.WriteString(c.UpdateTime.Format(time.ANSIC))
 	builder.WriteString(", name=")
 	builder.WriteString(c.Name)
+	builder.WriteString(", uid=")
+	builder.WriteString(c.UID)
 	builder.WriteByte(')')
 	return builder.String()
 }

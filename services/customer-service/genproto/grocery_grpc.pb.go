@@ -4,7 +4,7 @@
 // - protoc             v3.12.4
 // source: grocery.proto
 
-package grocery_store
+package grocerystore
 
 import (
 	context "context"

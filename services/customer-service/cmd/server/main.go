@@ -45,16 +45,18 @@ func main() {
 
 func buildDBClient() *ent.Client {
 	config := mysql.Config{
-		User:      os.Getenv("MYSQL_USER"),
-		Passwd:    os.Getenv("MYSQL_PASSWORD"),
-		Net:       "tcp",
-		Addr:      net.JoinHostPort(os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_PORT")),
-		DBName:    os.Getenv("MYSQL_DATABASE"),
+		User:   os.Getenv("MYSQL_USER"),
+		Passwd: os.Getenv("MYSQL_PASSWORD"),
+		Net:    "tcp",
+		Addr:   net.JoinHostPort(os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_PORT")),
+		DBName: os.Getenv("MYSQL_DATABASE"),
+		// AllowNativePasswords: false,
 		ParseTime: true,
 	}
+	log.Printf("dsn: %s", config.FormatDSN())
 	client, err := ent.Open("mysql", config.FormatDSN())
 	if err != nil {
-		log.Fatalf("opening ent client: %v", err)
+		log.Fatalf("failed connecting to DB: %v", err)
 	}
 	return client
 }

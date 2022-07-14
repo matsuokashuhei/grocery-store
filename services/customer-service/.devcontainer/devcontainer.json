@@ -1,0 +1,17 @@
+{
+    "dockerComposeFile": [
+        "../../../compose.yml",
+        "compose.yml"
+    ],
+    "service": "customer-service",
+    "workspaceFolder": "/grocery-store/services/customer-service",
+    // "build": {
+    //     "dockerfile": "../Dockerfile",
+    //     "target": "builder"
+    // },
+    "shutdownAction": "none",
+    "extensions": [
+        "golang.go",
+        "mhutchie.git-graph"
+    ]
+}

@@ -1,0 +1,3 @@
+services:
+  customer-service:
+    command: sleep infinity

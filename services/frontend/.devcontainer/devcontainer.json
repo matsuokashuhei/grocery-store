@@ -1,0 +1,8 @@
+{
+    "dockerComposeFile": [
+        "../../../compose.yml"
+    ],
+    "service": "frontend",
+    "workspaceFolder": "/grocery-store/services/frontend",
+    "shutdownAction": "none"
+}

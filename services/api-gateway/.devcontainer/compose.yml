@@ -1,0 +1,3 @@
+services:
+  api-gateway:
+    command: sleep infinity

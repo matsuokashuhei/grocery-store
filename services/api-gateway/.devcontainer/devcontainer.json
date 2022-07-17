@@ -1,0 +1,34 @@
+{
+    "dockerComposeFile": [
+        "../../../compose.yml",
+        "compose.yml"
+    ],
+    "service": "api-gateway",
+    "workspaceFolder": "/grocery-store/services/api-gateway",
+    "shutdownAction": "none",
+    "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+    ],
+    "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll": true,
+          "source.organizeImports": false
+        },
+        "editor.formatOnSave": true,
+        "workbench.editor.enablePreview": false,
+        "workbench.editor.enablePreviewFromQuickOpen": false,
+        "workbench.tree.indent": 16,
+        "[javascript]": {
+          "editor.tabSize": 2
+        },
+        "eslint.validate": [
+          "javascript",
+          "typescript"
+        ]
+    }
+}

@@ -5,6 +5,7 @@ package grocerystore;
 
 service CustomerService {
     rpc SignUp(SignUpRequest) returns (SignUpResposne) {}
+    rpc Delete(DeleteRequest) returns (DeleteResposne) {}
 }
 
 message SignUpRequest {
@@ -14,5 +15,13 @@ message SignUpRequest {
 }
 
 message SignUpResposne {
+    string uid = 1;
+}
+
+message DeleteRequest {
+    string uid = 1;
+}
+
+message DeleteResposne {
     string uid = 1;
 }

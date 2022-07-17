@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CustomerServiceClient interface {
 	SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*SignUpResposne, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResposne, error)
 }
 
 type customerServiceClient struct {
@@ -42,11 +43,21 @@ func (c *customerServiceClient) SignUp(ctx context.Context, in *SignUpRequest, o
 	return out, nil
 }
 
+func (c *customerServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResposne, error) {
+	out := new(DeleteResposne)
+	err := c.cc.Invoke(ctx, "/grocerystore.CustomerService/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerServiceServer is the server API for CustomerService service.
 // All implementations must embed UnimplementedCustomerServiceServer
 // for forward compatibility
 type CustomerServiceServer interface {
 	SignUp(context.Context, *SignUpRequest) (*SignUpResposne, error)
+	Delete(context.Context, *DeleteRequest) (*DeleteResposne, error)
 	mustEmbedUnimplementedCustomerServiceServer()
 }
 
@@ -56,6 +67,9 @@ type UnimplementedCustomerServiceServer struct {
 
 func (UnimplementedCustomerServiceServer) SignUp(context.Context, *SignUpRequest) (*SignUpResposne, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SignUp not implemented")
+}
+func (UnimplementedCustomerServiceServer) Delete(context.Context, *DeleteRequest) (*DeleteResposne, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedCustomerServiceServer) mustEmbedUnimplementedCustomerServiceServer() {}
 
@@ -88,6 +102,24 @@ func _CustomerService_SignUp_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grocerystore.CustomerService/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).Delete(ctx, req.(*DeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerService_ServiceDesc is the grpc.ServiceDesc for CustomerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +130,10 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SignUp",
 			Handler:    _CustomerService_SignUp_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _CustomerService_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

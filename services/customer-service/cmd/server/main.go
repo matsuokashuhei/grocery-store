@@ -9,8 +9,8 @@ import (
 	"os"
 
 	"matsuokashuhei/grocery-store/services/customer-service/ent"
-	pb "matsuokashuhei/grocery-store/services/customer-service/genproto"
 	"matsuokashuhei/grocery-store/services/customer-service/internal/service"
+	pb "matsuokashuhei/grocery-store/services/customer-service/proto"
 
 	firebase "firebase.google.com/go/v4"
 	"firebase.google.com/go/v4/auth"
@@ -45,13 +45,13 @@ func main() {
 
 func buildDBClient() *ent.Client {
 	config := mysql.Config{
-		User:   os.Getenv("MYSQL_USER"),
-		Passwd: os.Getenv("MYSQL_PASSWORD"),
-		Net:    "tcp",
-		Addr:   net.JoinHostPort(os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_PORT")),
-		DBName: os.Getenv("MYSQL_DATABASE"),
-		// AllowNativePasswords: false,
-		ParseTime: true,
+		User:                 os.Getenv("MYSQL_USER"),
+		Passwd:               os.Getenv("MYSQL_PASSWORD"),
+		Net:                  "tcp",
+		Addr:                 net.JoinHostPort(os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_PORT")),
+		DBName:               os.Getenv("MYSQL_DATABASE"),
+		AllowNativePasswords: true,
+		ParseTime:            true,
 	}
 	log.Printf("dsn: %s", config.FormatDSN())
 	client, err := ent.Open("mysql", config.FormatDSN())

@@ -9,17 +9,32 @@ services:
     volumes:
       - .:/grocery-store
 
+  api-gateway:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: ./services/api-gateway/.devcontainer/Dockerfile
+    # command: npm run dev
+    command: sleep infinity
+    depends_on:
+      - customer-service
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/grocery-store
+
   customer-service:
     build:
       context: .
       dockerfile: ./services/customer-service/Dockerfile
-    command: go run server.go -port 8080
+    # command: go run cmd/server/main.go
+    command: sleep infinity
     depends_on:
       - customer-service-db
     env_file:
       - ./services/customer-service/.env
-    ports:
-      - 8080:8080
+    # ports:
+    #   - 8080:8080
     volumes:
       - .:/grocery-store
 

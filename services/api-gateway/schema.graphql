@@ -6,7 +6,7 @@ type Customer {
   name: String!
 }
 
-input CustomerInput {
+input CreateCustomerInput {
   name: String!
   email: String!
   password: String!
@@ -18,7 +18,7 @@ input DeleteCustomerInput {
 
 type Mutation {
   getCustomer: Customer!
-  createCustomer(input: CustomerInput!): Customer!
+  createCustomer(input: CreateCustomerInput!): Customer!
   deleteCustomer(input: DeleteCustomerInput!): Customer!
 }
 

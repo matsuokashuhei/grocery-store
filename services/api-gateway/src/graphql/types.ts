@@ -14,16 +14,16 @@ export type Scalars = {
   Float: number;
 };
 
+export type CreateCustomerInput = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type Customer = {
   __typename?: 'Customer';
   name: Scalars['String'];
   uid: Scalars['String'];
-};
-
-export type CustomerInput = {
-  email: Scalars['String'];
-  name: Scalars['String'];
-  password: Scalars['String'];
 };
 
 export type DeleteCustomerInput = {
@@ -39,7 +39,7 @@ export type Mutation = {
 
 
 export type MutationCreateCustomerArgs = {
-  input: CustomerInput;
+  input: CreateCustomerInput;
 };
 
 
@@ -127,8 +127,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CreateCustomerInput: CreateCustomerInput;
   Customer: ResolverTypeWrapper<Customer>;
-  CustomerInput: CustomerInput;
   DeleteCustomerInput: DeleteCustomerInput;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
@@ -138,8 +138,8 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  CreateCustomerInput: CreateCustomerInput;
   Customer: Customer;
-  CustomerInput: CustomerInput;
   DeleteCustomerInput: DeleteCustomerInput;
   Mutation: {};
   Query: {};

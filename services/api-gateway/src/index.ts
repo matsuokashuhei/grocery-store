@@ -10,5 +10,12 @@ const schema = loadSchemaSync(join(__dirname, "../schema.graphql"), {
 });
 const schemaWithResolvers = addResolversToSchema({ schema, resolvers });
 
-const server = new ApolloServer({ schema: schemaWithResolvers });
+const server = new ApolloServer({
+  schema: schemaWithResolvers,
+  csrfPrevention: true, // see below for more about this
+  cache: "bounded",
+  cors: {
+    origin: ["http://localhost:3000", "https://studio.apollographql.com"],
+  },
+});
 server.listen().then((url) => console.log(`🚀  Server ready at ${url}`));

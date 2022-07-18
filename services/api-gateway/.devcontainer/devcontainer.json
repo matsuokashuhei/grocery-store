@@ -8,7 +8,8 @@
     "shutdownAction": "none",
     "extensions": [
         "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint"
+        "dbaeumer.vscode-eslint",
+        "apollographql.vscode-apollo"
     ],
     "settings": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",

@@ -8,51 +8,68 @@ import * as grpc from "grpc";
 import * as grocery_pb from "./grocery_pb";
 
 interface ICustomerServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
-    signUp: ICustomerServiceService_ISignUp;
-    delete: ICustomerServiceService_IDelete;
+    getCustomer: ICustomerServiceService_IGetCustomer;
+    createCustomer: ICustomerServiceService_ICreateCustomer;
+    deleteCustomer: ICustomerServiceService_IDeleteCustomer;
 }
 
-interface ICustomerServiceService_ISignUp extends grpc.MethodDefinition<grocery_pb.SignUpRequest, grocery_pb.SignUpResposne> {
-    path: "/grocerystore.CustomerService/SignUp";
+interface ICustomerServiceService_IGetCustomer extends grpc.MethodDefinition<grocery_pb.GetCustomerRequest, grocery_pb.Customer> {
+    path: "/grocerystore.CustomerService/GetCustomer";
     requestStream: false;
     responseStream: false;
-    requestSerialize: grpc.serialize<grocery_pb.SignUpRequest>;
-    requestDeserialize: grpc.deserialize<grocery_pb.SignUpRequest>;
-    responseSerialize: grpc.serialize<grocery_pb.SignUpResposne>;
-    responseDeserialize: grpc.deserialize<grocery_pb.SignUpResposne>;
+    requestSerialize: grpc.serialize<grocery_pb.GetCustomerRequest>;
+    requestDeserialize: grpc.deserialize<grocery_pb.GetCustomerRequest>;
+    responseSerialize: grpc.serialize<grocery_pb.Customer>;
+    responseDeserialize: grpc.deserialize<grocery_pb.Customer>;
 }
-interface ICustomerServiceService_IDelete extends grpc.MethodDefinition<grocery_pb.DeleteRequest, grocery_pb.DeleteResposne> {
-    path: "/grocerystore.CustomerService/Delete";
+interface ICustomerServiceService_ICreateCustomer extends grpc.MethodDefinition<grocery_pb.CreateCustomerRequest, grocery_pb.Customer> {
+    path: "/grocerystore.CustomerService/CreateCustomer";
     requestStream: false;
     responseStream: false;
-    requestSerialize: grpc.serialize<grocery_pb.DeleteRequest>;
-    requestDeserialize: grpc.deserialize<grocery_pb.DeleteRequest>;
-    responseSerialize: grpc.serialize<grocery_pb.DeleteResposne>;
-    responseDeserialize: grpc.deserialize<grocery_pb.DeleteResposne>;
+    requestSerialize: grpc.serialize<grocery_pb.CreateCustomerRequest>;
+    requestDeserialize: grpc.deserialize<grocery_pb.CreateCustomerRequest>;
+    responseSerialize: grpc.serialize<grocery_pb.Customer>;
+    responseDeserialize: grpc.deserialize<grocery_pb.Customer>;
+}
+interface ICustomerServiceService_IDeleteCustomer extends grpc.MethodDefinition<grocery_pb.DeleteCustomerRequest, grocery_pb.Customer> {
+    path: "/grocerystore.CustomerService/DeleteCustomer";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<grocery_pb.DeleteCustomerRequest>;
+    requestDeserialize: grpc.deserialize<grocery_pb.DeleteCustomerRequest>;
+    responseSerialize: grpc.serialize<grocery_pb.Customer>;
+    responseDeserialize: grpc.deserialize<grocery_pb.Customer>;
 }
 
 export const CustomerServiceService: ICustomerServiceService;
 
 export interface ICustomerServiceServer {
-    signUp: grpc.handleUnaryCall<grocery_pb.SignUpRequest, grocery_pb.SignUpResposne>;
-    delete: grpc.handleUnaryCall<grocery_pb.DeleteRequest, grocery_pb.DeleteResposne>;
+    getCustomer: grpc.handleUnaryCall<grocery_pb.GetCustomerRequest, grocery_pb.Customer>;
+    createCustomer: grpc.handleUnaryCall<grocery_pb.CreateCustomerRequest, grocery_pb.Customer>;
+    deleteCustomer: grpc.handleUnaryCall<grocery_pb.DeleteCustomerRequest, grocery_pb.Customer>;
 }
 
 export interface ICustomerServiceClient {
-    signUp(request: grocery_pb.SignUpRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.SignUpResposne) => void): grpc.ClientUnaryCall;
-    signUp(request: grocery_pb.SignUpRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.SignUpResposne) => void): grpc.ClientUnaryCall;
-    signUp(request: grocery_pb.SignUpRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.SignUpResposne) => void): grpc.ClientUnaryCall;
-    delete(request: grocery_pb.DeleteRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.DeleteResposne) => void): grpc.ClientUnaryCall;
-    delete(request: grocery_pb.DeleteRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.DeleteResposne) => void): grpc.ClientUnaryCall;
-    delete(request: grocery_pb.DeleteRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.DeleteResposne) => void): grpc.ClientUnaryCall;
+    getCustomer(request: grocery_pb.GetCustomerRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    getCustomer(request: grocery_pb.GetCustomerRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    getCustomer(request: grocery_pb.GetCustomerRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    createCustomer(request: grocery_pb.CreateCustomerRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    createCustomer(request: grocery_pb.CreateCustomerRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    createCustomer(request: grocery_pb.CreateCustomerRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    deleteCustomer(request: grocery_pb.DeleteCustomerRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    deleteCustomer(request: grocery_pb.DeleteCustomerRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    deleteCustomer(request: grocery_pb.DeleteCustomerRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
 }
 
 export class CustomerServiceClient extends grpc.Client implements ICustomerServiceClient {
     constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
-    public signUp(request: grocery_pb.SignUpRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.SignUpResposne) => void): grpc.ClientUnaryCall;
-    public signUp(request: grocery_pb.SignUpRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.SignUpResposne) => void): grpc.ClientUnaryCall;
-    public signUp(request: grocery_pb.SignUpRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.SignUpResposne) => void): grpc.ClientUnaryCall;
-    public delete(request: grocery_pb.DeleteRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.DeleteResposne) => void): grpc.ClientUnaryCall;
-    public delete(request: grocery_pb.DeleteRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.DeleteResposne) => void): grpc.ClientUnaryCall;
-    public delete(request: grocery_pb.DeleteRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.DeleteResposne) => void): grpc.ClientUnaryCall;
+    public getCustomer(request: grocery_pb.GetCustomerRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    public getCustomer(request: grocery_pb.GetCustomerRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    public getCustomer(request: grocery_pb.GetCustomerRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    public createCustomer(request: grocery_pb.CreateCustomerRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    public createCustomer(request: grocery_pb.CreateCustomerRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    public createCustomer(request: grocery_pb.CreateCustomerRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    public deleteCustomer(request: grocery_pb.DeleteCustomerRequest, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    public deleteCustomer(request: grocery_pb.DeleteCustomerRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
+    public deleteCustomer(request: grocery_pb.DeleteCustomerRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: grocery_pb.Customer) => void): grpc.ClientUnaryCall;
 }

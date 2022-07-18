@@ -6,25 +6,68 @@
 
 import * as jspb from "google-protobuf";
 
-export class SignUpRequest extends jspb.Message { 
+export class Customer extends jspb.Message { 
+    getUid(): string;
+    setUid(value: string): Customer;
     getName(): string;
-    setName(value: string): SignUpRequest;
-    getEmail(): string;
-    setEmail(value: string): SignUpRequest;
-    getPassword(): string;
-    setPassword(value: string): SignUpRequest;
+    setName(value: string): Customer;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): SignUpRequest.AsObject;
-    static toObject(includeInstance: boolean, msg: SignUpRequest): SignUpRequest.AsObject;
+    toObject(includeInstance?: boolean): Customer.AsObject;
+    static toObject(includeInstance: boolean, msg: Customer): Customer.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: SignUpRequest, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): SignUpRequest;
-    static deserializeBinaryFromReader(message: SignUpRequest, reader: jspb.BinaryReader): SignUpRequest;
+    static serializeBinaryToWriter(message: Customer, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): Customer;
+    static deserializeBinaryFromReader(message: Customer, reader: jspb.BinaryReader): Customer;
 }
 
-export namespace SignUpRequest {
+export namespace Customer {
+    export type AsObject = {
+        uid: string,
+        name: string,
+    }
+}
+
+export class GetCustomerRequest extends jspb.Message { 
+    getUid(): string;
+    setUid(value: string): GetCustomerRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): GetCustomerRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: GetCustomerRequest): GetCustomerRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: GetCustomerRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): GetCustomerRequest;
+    static deserializeBinaryFromReader(message: GetCustomerRequest, reader: jspb.BinaryReader): GetCustomerRequest;
+}
+
+export namespace GetCustomerRequest {
+    export type AsObject = {
+        uid: string,
+    }
+}
+
+export class CreateCustomerRequest extends jspb.Message { 
+    getName(): string;
+    setName(value: string): CreateCustomerRequest;
+    getEmail(): string;
+    setEmail(value: string): CreateCustomerRequest;
+    getPassword(): string;
+    setPassword(value: string): CreateCustomerRequest;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): CreateCustomerRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: CreateCustomerRequest): CreateCustomerRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: CreateCustomerRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): CreateCustomerRequest;
+    static deserializeBinaryFromReader(message: CreateCustomerRequest, reader: jspb.BinaryReader): CreateCustomerRequest;
+}
+
+export namespace CreateCustomerRequest {
     export type AsObject = {
         name: string,
         email: string,
@@ -32,61 +75,21 @@ export namespace SignUpRequest {
     }
 }
 
-export class SignUpResposne extends jspb.Message { 
+export class DeleteCustomerRequest extends jspb.Message { 
     getUid(): string;
-    setUid(value: string): SignUpResposne;
+    setUid(value: string): DeleteCustomerRequest;
 
     serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): SignUpResposne.AsObject;
-    static toObject(includeInstance: boolean, msg: SignUpResposne): SignUpResposne.AsObject;
+    toObject(includeInstance?: boolean): DeleteCustomerRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: DeleteCustomerRequest): DeleteCustomerRequest.AsObject;
     static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
     static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: SignUpResposne, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): SignUpResposne;
-    static deserializeBinaryFromReader(message: SignUpResposne, reader: jspb.BinaryReader): SignUpResposne;
+    static serializeBinaryToWriter(message: DeleteCustomerRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): DeleteCustomerRequest;
+    static deserializeBinaryFromReader(message: DeleteCustomerRequest, reader: jspb.BinaryReader): DeleteCustomerRequest;
 }
 
-export namespace SignUpResposne {
-    export type AsObject = {
-        uid: string,
-    }
-}
-
-export class DeleteRequest extends jspb.Message { 
-    getUid(): string;
-    setUid(value: string): DeleteRequest;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): DeleteRequest.AsObject;
-    static toObject(includeInstance: boolean, msg: DeleteRequest): DeleteRequest.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: DeleteRequest, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): DeleteRequest;
-    static deserializeBinaryFromReader(message: DeleteRequest, reader: jspb.BinaryReader): DeleteRequest;
-}
-
-export namespace DeleteRequest {
-    export type AsObject = {
-        uid: string,
-    }
-}
-
-export class DeleteResposne extends jspb.Message { 
-    getUid(): string;
-    setUid(value: string): DeleteResposne;
-
-    serializeBinary(): Uint8Array;
-    toObject(includeInstance?: boolean): DeleteResposne.AsObject;
-    static toObject(includeInstance: boolean, msg: DeleteResposne): DeleteResposne.AsObject;
-    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-    static serializeBinaryToWriter(message: DeleteResposne, writer: jspb.BinaryWriter): void;
-    static deserializeBinary(bytes: Uint8Array): DeleteResposne;
-    static deserializeBinaryFromReader(message: DeleteResposne, reader: jspb.BinaryReader): DeleteResposne;
-}
-
-export namespace DeleteResposne {
+export namespace DeleteCustomerRequest {
     export type AsObject = {
         uid: string,
     }

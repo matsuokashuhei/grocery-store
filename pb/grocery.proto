@@ -4,15 +4,26 @@ option go_package = "matsuokashuhei/grocerystore";
 package grocerystore;
 
 service CustomerService {
-    rpc SignUp(SignUpRequest) returns (SignUpResposne) {}
+    rpc GetCustomer(GetCustomerRequest) returns (Customer) {}
+    rpc CreateCustomer(CreateCustomerRequest) returns (Customer) {}
+    rpc DeleteCustomer(DeleteCustomerRequest) returns (Customer) {}
 }
 
-message SignUpRequest {
+message Customer {
+    string uid = 1;
+    string name = 2;
+}
+
+message GetCustomerRequest {
+    string uid = 1;
+}
+
+message CreateCustomerRequest {
     string name = 1;
     string email = 2;
     string password = 3;
 }
 
-message SignUpResposne {
+message DeleteCustomerRequest {
     string uid = 1;
 }

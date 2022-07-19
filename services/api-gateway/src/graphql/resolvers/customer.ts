@@ -17,8 +17,9 @@ export const customer: QueryResolvers["customer"] = async (
     "customer-service:50051",
     credentials.createInsecure()
   );
+  console.log("context", context);
   const req = new GetCustomerRequest();
-  req.setUid(args.uid);
+  req.setUid(context.uid);
   return new Promise((resolve, reject) => {
     client.getCustomer(req, (error, res) => {
       if (error) {

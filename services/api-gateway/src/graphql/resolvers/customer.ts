@@ -7,16 +7,17 @@ import {
 } from "../../proto/grocery_pb";
 import { MutationResolvers, QueryResolvers } from "../types";
 
+const client = new CustomerServiceClient(
+  "customer-service:50051",
+  credentials.createInsecure()
+);
+
 export const customer: QueryResolvers["customer"] = async (
   parent,
   args,
   context,
   info
 ) => {
-  const client = new CustomerServiceClient(
-    "customer-service:50051",
-    credentials.createInsecure()
-  );
   console.log("context", context);
   const req = new GetCustomerRequest();
   req.setUid(context.uid);
@@ -37,10 +38,6 @@ export const createCustomer: MutationResolvers["createCustomer"] = async (
   context,
   info
 ) => {
-  const client = new CustomerServiceClient(
-    "customer-service:50051",
-    credentials.createInsecure()
-  );
   const req = new CreateCustomerRequest();
   req.setName(args.input.name);
   req.setEmail(args.input.email);
@@ -62,12 +59,8 @@ export const deleteCustomer: MutationResolvers["deleteCustomer"] = async (
   context,
   info
 ) => {
-  const client = new CustomerServiceClient(
-    "customer-service:50051",
-    credentials.createInsecure()
-  );
   const req = new DeleteCustomerRequest();
-  req.setUid(args.input.uid);
+  req.setUid(context.uid);
   return new Promise((resolve, reject) => {
     client.deleteCustomer(req, (error, res) => {
       if (error) {

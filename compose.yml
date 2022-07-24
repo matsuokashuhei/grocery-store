@@ -27,14 +27,12 @@ services:
     build:
       context: .
       dockerfile: ./services/customer-service/Dockerfile
-    # command: go run cmd/server/main.go
-    command: sleep infinity
+    command: go run cmd/server/main.go
+    # command: sleep infinity
     depends_on:
       - customer-service-db
     env_file:
       - ./services/customer-service/.env
-    # ports:
-    #   - 8080:8080
     volumes:
       - .:/grocery-store
 

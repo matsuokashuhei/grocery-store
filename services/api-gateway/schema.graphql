@@ -6,22 +6,17 @@ type Customer {
   name: String!
 }
 
-input CustomerInput {
+input CreateCustomerInput {
   name: String!
   email: String!
   password: String!
 }
 
-input DeleteCustomerInput {
-  uid: String!
-}
-
 type Mutation {
-  getCustomer: Customer!
-  createCustomer(input: CustomerInput!): Customer!
-  deleteCustomer(input: DeleteCustomerInput!): Customer!
+  createCustomer(input: CreateCustomerInput!): Customer!
+  deleteCustomer: Customer!
 }
 
 type Query {
-  customer(uid: String!): Customer!
+  customer: Customer!
 }

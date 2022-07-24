@@ -27,15 +27,10 @@ export type Customer = {
   uid: Scalars['String'];
 };
 
-export type DeleteCustomerInput = {
-  uid: Scalars['String'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   createCustomer: Customer;
   deleteCustomer: Customer;
-  getCustomer: Customer;
 };
 
 
@@ -43,19 +38,9 @@ export type MutationCreateCustomerArgs = {
   input: CreateCustomerInput;
 };
 
-
-export type MutationDeleteCustomerArgs = {
-  input: DeleteCustomerInput;
-};
-
 export type Query = {
   __typename?: 'Query';
   customer: Customer;
-};
-
-
-export type QueryCustomerArgs = {
-  uid: Scalars['String'];
 };
 
 export type CreateCustomerMutationVariables = Exact<{
@@ -65,12 +50,15 @@ export type CreateCustomerMutationVariables = Exact<{
 
 export type CreateCustomerMutation = { __typename?: 'Mutation', createCustomer: { __typename?: 'Customer', uid: string, name: string } };
 
-export type DeleteCustomerMutationVariables = Exact<{
-  input: DeleteCustomerInput;
-}>;
+export type DeleteCustomerMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DeleteCustomerMutation = { __typename?: 'Mutation', deleteCustomer: { __typename?: 'Customer', uid: string, name: string } };
+
+export type GetCustomerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCustomerQuery = { __typename?: 'Query', customer: { __typename?: 'Customer', uid: string, name: string } };
 
 
 export const CreateCustomerDocument = gql`
@@ -108,8 +96,8 @@ export type CreateCustomerMutationHookResult = ReturnType<typeof useCreateCustom
 export type CreateCustomerMutationResult = Apollo.MutationResult<CreateCustomerMutation>;
 export type CreateCustomerMutationOptions = Apollo.BaseMutationOptions<CreateCustomerMutation, CreateCustomerMutationVariables>;
 export const DeleteCustomerDocument = gql`
-    mutation DeleteCustomer($input: DeleteCustomerInput!) {
-  deleteCustomer(input: $input) {
+    mutation DeleteCustomer {
+  deleteCustomer {
     uid
     name
   }
@@ -130,7 +118,6 @@ export type DeleteCustomerMutationFn = Apollo.MutationFunction<DeleteCustomerMut
  * @example
  * const [deleteCustomerMutation, { data, loading, error }] = useDeleteCustomerMutation({
  *   variables: {
- *      input: // value for 'input'
  *   },
  * });
  */
@@ -141,3 +128,38 @@ export function useDeleteCustomerMutation(baseOptions?: Apollo.MutationHookOptio
 export type DeleteCustomerMutationHookResult = ReturnType<typeof useDeleteCustomerMutation>;
 export type DeleteCustomerMutationResult = Apollo.MutationResult<DeleteCustomerMutation>;
 export type DeleteCustomerMutationOptions = Apollo.BaseMutationOptions<DeleteCustomerMutation, DeleteCustomerMutationVariables>;
+export const GetCustomerDocument = gql`
+    query GetCustomer {
+  customer {
+    uid
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetCustomerQuery__
+ *
+ * To run a query within a React component, call `useGetCustomerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCustomerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCustomerQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCustomerQuery(baseOptions?: Apollo.QueryHookOptions<GetCustomerQuery, GetCustomerQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCustomerQuery, GetCustomerQueryVariables>(GetCustomerDocument, options);
+      }
+export function useGetCustomerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCustomerQuery, GetCustomerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCustomerQuery, GetCustomerQueryVariables>(GetCustomerDocument, options);
+        }
+export type GetCustomerQueryHookResult = ReturnType<typeof useGetCustomerQuery>;
+export type GetCustomerLazyQueryHookResult = ReturnType<typeof useGetCustomerLazyQuery>;
+export type GetCustomerQueryResult = Apollo.QueryResult<GetCustomerQuery, GetCustomerQueryVariables>;

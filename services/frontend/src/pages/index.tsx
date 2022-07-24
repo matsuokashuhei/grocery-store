@@ -8,10 +8,11 @@ import {
 } from "firebase/auth";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
+import { useGetCustomerLazyQuery } from "../../pages/api/generated";
 import {
   CreateCustomerInput,
   useCreateCustomerMutation,
-} from "./api/generated";
+} from "../graphql/generated";
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -41,8 +42,13 @@ const Home: NextPage = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (!token) return;
+  }, [token]);
+
   const [createCustomer, { data, loading, error }] =
     useCreateCustomerMutation();
+  // const [getCustomer, { data, loading, error }] = useGetCustomerLazyQuery();
 
   const [name, setName] = useState("matsuokashuhei");
   const [email, setEmail] = useState("matsuokashuheiii@gmail.com");

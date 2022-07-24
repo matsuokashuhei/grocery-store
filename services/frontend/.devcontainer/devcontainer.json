@@ -1,11 +1,10 @@
 {
-  "dockerComposeFile": [
-    "../../../compose.yml"
-  ],
+  "dockerComposeFile": ["../../../compose.yml"],
   "service": "frontend",
   "workspaceFolder": "/grocery-store/services/frontend",
   "shutdownAction": "none",
   "extensions": [
+    "apollographql.vscode-apollo",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode"
   ],

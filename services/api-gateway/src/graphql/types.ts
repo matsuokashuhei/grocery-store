@@ -26,15 +26,10 @@ export type Customer = {
   uid: Scalars['String'];
 };
 
-export type DeleteCustomerInput = {
-  uid: Scalars['String'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   createCustomer: Customer;
   deleteCustomer: Customer;
-  getCustomer: Customer;
 };
 
 
@@ -42,19 +37,9 @@ export type MutationCreateCustomerArgs = {
   input: CreateCustomerInput;
 };
 
-
-export type MutationDeleteCustomerArgs = {
-  input: DeleteCustomerInput;
-};
-
 export type Query = {
   __typename?: 'Query';
   customer: Customer;
-};
-
-
-export type QueryCustomerArgs = {
-  uid: Scalars['String'];
 };
 
 
@@ -129,7 +114,6 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CreateCustomerInput: CreateCustomerInput;
   Customer: ResolverTypeWrapper<Customer>;
-  DeleteCustomerInput: DeleteCustomerInput;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -140,7 +124,6 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   CreateCustomerInput: CreateCustomerInput;
   Customer: Customer;
-  DeleteCustomerInput: DeleteCustomerInput;
   Mutation: {};
   Query: {};
   String: Scalars['String'];
@@ -154,12 +137,11 @@ export type CustomerResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createCustomer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType, RequireFields<MutationCreateCustomerArgs, 'input'>>;
-  deleteCustomer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType, RequireFields<MutationDeleteCustomerArgs, 'input'>>;
-  getCustomer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
+  deleteCustomer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  customer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType, RequireFields<QueryCustomerArgs, 'uid'>>;
+  customer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {

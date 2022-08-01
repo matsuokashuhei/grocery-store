@@ -14,19 +14,15 @@ export type Scalars = {
   Float: number;
 };
 
-export type Customer = {
-  __typename?: 'Customer';
-  name: Scalars['String'];
-  uid: Scalars['String'];
-};
-
-export type CustomerInput = {
+export type CreateCustomerInput = {
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
 };
 
-export type DeleteCustomerInput = {
+export type Customer = {
+  __typename?: 'Customer';
+  name: Scalars['String'];
   uid: Scalars['String'];
 };
 
@@ -34,27 +30,16 @@ export type Mutation = {
   __typename?: 'Mutation';
   createCustomer: Customer;
   deleteCustomer: Customer;
-  getCustomer: Customer;
 };
 
 
 export type MutationCreateCustomerArgs = {
-  input: CustomerInput;
-};
-
-
-export type MutationDeleteCustomerArgs = {
-  input: DeleteCustomerInput;
+  input: CreateCustomerInput;
 };
 
 export type Query = {
   __typename?: 'Query';
   customer: Customer;
-};
-
-
-export type QueryCustomerArgs = {
-  uid: Scalars['String'];
 };
 
 
@@ -127,9 +112,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CreateCustomerInput: CreateCustomerInput;
   Customer: ResolverTypeWrapper<Customer>;
-  CustomerInput: CustomerInput;
-  DeleteCustomerInput: DeleteCustomerInput;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -138,9 +122,8 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  CreateCustomerInput: CreateCustomerInput;
   Customer: Customer;
-  CustomerInput: CustomerInput;
-  DeleteCustomerInput: DeleteCustomerInput;
   Mutation: {};
   Query: {};
   String: Scalars['String'];
@@ -154,12 +137,11 @@ export type CustomerResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createCustomer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType, RequireFields<MutationCreateCustomerArgs, 'input'>>;
-  deleteCustomer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType, RequireFields<MutationDeleteCustomerArgs, 'input'>>;
-  getCustomer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
+  deleteCustomer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  customer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType, RequireFields<QueryCustomerArgs, 'uid'>>;
+  customer?: Resolver<ResolversTypes['Customer'], ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {

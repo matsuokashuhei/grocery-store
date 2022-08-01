@@ -1,0 +1,6 @@
+query GetCustomer {
+  customer {
+    uid
+    name
+  }
+}

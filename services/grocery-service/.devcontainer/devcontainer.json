@@ -1,0 +1,20 @@
+{
+    "dockerComposeFile": [
+        "../../../compose.yml",
+        "compose.yml"
+    ],
+    "service": "grocery-service",
+    "workspaceFolder": "/grocery-store/services/grocery-service",
+    // "build": {
+    //     "dockerfile": "../Dockerfile",
+    //     "target": "builder"
+    // },
+    "shutdownAction": "none",
+    "extensions": [
+        "rust-lang.rust-analyzer",
+        "mhutchie.git-graph"
+    ],
+    "settings": {
+        "rust-analyzer.cargo.runBuildScripts": true
+    }
+}

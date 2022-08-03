@@ -1,0 +1,3 @@
+services:
+  grocery-service:
+    command: sleep infinity

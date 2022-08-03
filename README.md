@@ -177,3 +177,32 @@ order_refunds ||--|{ refund_items : ""
 refund_items }|--|| order_items : ""
 
 ```
+
+
+# gRPCurl
+
+```
+docker run \
+  -v $(pwd)/services/grocery-service/proto/:/protos \
+  --net=grocery-store_default \
+  fullstorydev/grpcurl \
+    -plaintext \
+    -import-path /protos \
+    -proto helloworld.proto \
+    -d '{"name": "Tonic"}' \
+    grocery-service:50051 \
+    helloworld.Greeter/SayHello
+```
+
+```
+docker run \
+  -v $(pwd)/services/grocery-service/proto/:/protos \
+  --net=host \
+  fullstorydev/grpcurl \
+    -plaintext \
+    -import-path /protos \
+    -proto helloworld.proto \
+    -d '{"name": "Tonic"}' \
+    localhost:50052 \
+    helloworld.Greeter/SayHello
+```

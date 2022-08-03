@@ -3,7 +3,8 @@ services:
     build:
       context: .
       dockerfile: ./services/frontend/.devcontainer/Dockerfile
-    command: sleep infinity
+    # command: sleep infinity
+    command: npm run dev
     ports:
       - 3000:3000
     volumes:
@@ -14,10 +15,12 @@ services:
     build:
       context: .
       dockerfile: ./services/api-gateway/.devcontainer/Dockerfile
-    # command: npm run dev
-    command: sleep infinity
+    command: npm run dev
+    # command: sleep infinity
     depends_on:
       - customer-service
+    env_file:
+      - ./services/.env
     ports:
       - 4000:4000
     volumes:
@@ -42,9 +45,35 @@ services:
       - ./services/customer-service/.env
     command: mysqld --default_authentication_plugin=mysql_native_password
     ports:
-      - 3306:3306
+      - 33061:3306
     volumes:
       - customer-service-db-data:/var/lib/mysql
 
+  grocery-service:
+    build:
+      context: .
+      dockerfile: ./services/grocery-service/Dockerfile
+    # command: sleep infinity
+    command: cargo run --bin helloworld-server
+    depends_on:
+      - grocery-service-db
+    env_file:
+      - ./services/grocery-service/.env
+    ports:
+      - 50052:50051
+    volumes:
+      - .:/grocery-store
+
+  grocery-service-db:
+    image: mysql:8-oracle
+    env_file:
+      - ./services/grocery-service/.env
+    command: mysqld --default_authentication_plugin=mysql_native_password
+    ports:
+      - 33062:3306
+    volumes:
+      - grocery-service-db-data:/var/lib/mysql
+
 volumes:
   customer-service-db-data:
+  grocery-service-db-data:
